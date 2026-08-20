@@ -1,0 +1,185 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: oklch(0.95 0.025 85);
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  color: oklch(0.5 0.13 40);
+  text-decoration: none;
+}
+a:hover {
+  color: oklch(0.4 0.13 40);
+}
+::selection {
+  background: oklch(0.58 0.14 40 / 0.25);
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.95 0.025 85);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.6 0.05 75);
+  border-radius: 6px;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes auroraDriftA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6%, 8%) scale(1.08); }
+  66% { transform: translate(-4%, 4%) scale(0.95); }
+}
+
+@keyframes auroraDriftB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-7%, 5%) scale(0.94); }
+  66% { transform: translate(5%, -6%) scale(1.06); }
+}
+
+@keyframes auroraDriftC {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(5%, -7%) scale(1.05); }
+  66% { transform: translate(-6%, -3%) scale(0.96); }
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Responsive gutters + layout fixes for narrow viewports. Inline styles
+   can't hold media queries, so structural components expose class hooks
+   (.gutter, .section-heading-row, .hero-cta-row, .menu-row) that these
+   rules target — !important is required to win over the inline styles
+   those same elements also carry for desktop layout. */
+/* Keep the horizontally-scrolling specimen rail clear of the fixed dot
+   rail on wide screens. */
+@media (min-width: 1181px) {
+  .rail-scroll {
+    padding-right: 96px !important;
+  }
+}
+
+/* Navigation: inline chapter links on wide screens, compact menu toggle
+   on narrow ones. The dot rail is desktop-only since the top bar already
+   carries navigation on small screens. */
+@media (max-width: 1180px) {
+  .header-nav {
+    display: none !important;
+  }
+  .menu-toggle {
+    display: flex !important;
+  }
+  .dot-rail {
+    display: none !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .gutter {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+  .section-heading-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .section-heading-numeral {
+    font-size: 56px !important;
+  }
+  .hero-cta-row {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-cta-row > div {
+    justify-content: flex-start !important;
+  }
+  .menu-row {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    flex-wrap: wrap !important;
+  }
+  .about-photo-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .about-photo-grid img {
+    max-width: 200px;
+  }
+  .grid-collapse {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .home-index-cards {
+    grid-template-columns: 1fr !important;
+  }
+  .mentors-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-collapse {
+    grid-template-columns: 1fr !important;
+  }
+  .header-wordmark {
+    display: none !important;
+  }
+  .chapter-nav {
+    flex-direction: column !important;
+  }
+}
+
+@media (pointer: coarse) {
+  /* Custom cursor is disabled on touch, so make sure the real cursor
+     never got hidden by an interrupted effect cleanup. */
+  body {
+    cursor: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
