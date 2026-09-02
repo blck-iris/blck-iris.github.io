@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 // If you deploy to https://<user>.github.io/<repo-name>/, set `base` to
 // '/<repo-name>/' below (e.g. '/tp/'). If you deploy to a user/org page
 // (https://<user>.github.io/) or a custom domain, set base to '/'.
-const REPO_NAME = 'polo';
+const REPO_NAME = '/';
 
 export default defineConfig({
   plugins: [react()],
